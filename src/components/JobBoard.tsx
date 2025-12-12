@@ -93,7 +93,7 @@ export function JobBoard() {
   const jobsPerPage = 20;
 
   return (
-    <div className="flex min-h-[calc(100vh-4rem)]">
+    <div className="flex min-h-screen">
       {/* Filter Sidebar */}
       <FilterSidebar />
 
