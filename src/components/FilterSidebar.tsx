@@ -33,15 +33,6 @@ const filterSections: FilterSection[] = [
       { id: "senior", label: "Senior", count: 8 },
     ],
   },
-  {
-    title: "Job Type",
-    options: [
-      { id: "fulltime", label: "Full-time", count: 45 },
-      { id: "parttime", label: "Part-time", count: 12 },
-      { id: "contract", label: "Contract", count: 8 },
-      { id: "remote", label: "Remote", count: 23 },
-    ],
-  },
 ];
 
 export function FilterSidebar() {
