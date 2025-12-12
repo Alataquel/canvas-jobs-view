@@ -1,6 +1,7 @@
 import { FilterSidebar } from "./FilterSidebar";
 import { JobCard, Job } from "./JobCard";
 import { SearchBar } from "./SearchBar";
+import { Briefcase, TrendingUp } from "lucide-react";
 
 const sampleJobs: Job[] = [
   {
@@ -90,39 +91,60 @@ export function JobBoard() {
       <FilterSidebar />
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto p-8">
-        <div className="mx-auto max-w-4xl">
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-foreground">Job Board</h1>
-            <p className="mt-2 text-muted-foreground">
+      <main className="flex-1 overflow-auto">
+        {/* Header with gradient */}
+        <div className="bg-gradient-to-br from-primary/5 via-primary/3 to-transparent px-8 pt-8 pb-6">
+          <div className="mx-auto max-w-4xl">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                <Briefcase className="h-5 w-5 text-primary" />
+              </div>
+              <h1 className="text-3xl font-bold text-foreground">Job Board</h1>
+            </div>
+            <p className="text-muted-foreground max-w-2xl">
               Explore job opportunities that match your skills and experience. Use the filters to find the perfect job for you.
             </p>
+            
+            {/* Stats */}
+            <div className="flex items-center gap-6 mt-4">
+              <div className="flex items-center gap-2 text-sm">
+                <div className="h-2 w-2 rounded-full bg-status-new animate-pulse" />
+                <span className="text-muted-foreground"><strong className="text-foreground">12</strong> new today</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <TrendingUp className="h-4 w-4 text-primary" />
+                <span><strong className="text-foreground">156</strong> total opportunities</span>
+              </div>
+            </div>
           </div>
+        </div>
 
-          {/* Search */}
-          <div className="mb-6">
-            <SearchBar />
-          </div>
+        <div className="px-8 pb-8">
+          <div className="mx-auto max-w-4xl">
+            {/* Search */}
+            <div className="mb-6 -mt-3">
+              <SearchBar />
+            </div>
 
-          {/* Results count */}
-          <div className="mb-6 flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">
-              Showing <span className="font-medium text-foreground">{sampleJobs.length}</span> jobs
-            </p>
-            <select className="rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary">
-              <option>Most recent</option>
-              <option>Most relevant</option>
-              <option>Salary: High to Low</option>
-              <option>Salary: Low to High</option>
-            </select>
-          </div>
+            {/* Results count */}
+            <div className="mb-6 flex items-center justify-between">
+              <p className="text-sm text-muted-foreground">
+                Showing <span className="font-semibold text-foreground">{sampleJobs.length}</span> jobs
+              </p>
+              <select className="rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-shadow">
+                <option>Most recent</option>
+                <option>Most relevant</option>
+                <option>Salary: High to Low</option>
+                <option>Salary: Low to High</option>
+              </select>
+            </div>
 
-          {/* Job Listings */}
-          <div className="space-y-4">
-            {sampleJobs.map((job, index) => (
-              <JobCard key={job.id} job={job} index={index} />
-            ))}
+            {/* Job Listings */}
+            <div className="space-y-4">
+              {sampleJobs.map((job, index) => (
+                <JobCard key={job.id} job={job} index={index} />
+              ))}
+            </div>
           </div>
         </div>
       </main>
