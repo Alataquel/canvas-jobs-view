@@ -1,7 +1,9 @@
 import { FilterSidebar } from "./FilterSidebar";
 import { JobCard, Job } from "./JobCard";
 import { SearchBar } from "./SearchBar";
-import { Briefcase, TrendingUp } from "lucide-react";
+import { Briefcase, TrendingUp, ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const sampleJobs: Job[] = [
   {
@@ -85,6 +87,11 @@ const sampleJobs: Job[] = [
 ];
 
 export function JobBoard() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 8;
+  const totalJobs = 156;
+  const jobsPerPage = 20;
+
   return (
     <div className="flex min-h-[calc(100vh-4rem)]">
       {/* Filter Sidebar */}
@@ -144,6 +151,67 @@ export function JobBoard() {
               {sampleJobs.map((job, index) => (
                 <JobCard key={job.id} job={job} index={index} />
               ))}
+            </div>
+
+            {/* Pagination */}
+            <div className="mt-8 flex items-center justify-between border-t border-border pt-6">
+              <p className="text-sm text-muted-foreground">
+                Showing <span className="font-medium text-foreground">1-{sampleJobs.length}</span> of{" "}
+                <span className="font-medium text-foreground">{totalJobs}</span> jobs
+              </p>
+              
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                  disabled={currentPage === 1}
+                  className="h-9 px-3"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                
+                {[1, 2, 3].map((page) => (
+                  <Button
+                    key={page}
+                    variant={currentPage === page ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setCurrentPage(page)}
+                    className={`h-9 w-9 p-0 ${
+                      currentPage === page 
+                        ? "bg-primary text-primary-foreground" 
+                        : ""
+                    }`}
+                  >
+                    {page}
+                  </Button>
+                ))}
+                
+                <span className="text-muted-foreground px-1">...</span>
+                
+                <Button
+                  variant={currentPage === totalPages ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setCurrentPage(totalPages)}
+                  className={`h-9 w-9 p-0 ${
+                    currentPage === totalPages 
+                      ? "bg-primary text-primary-foreground" 
+                      : ""
+                  }`}
+                >
+                  {totalPages}
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  disabled={currentPage === totalPages}
+                  className="h-9 px-3"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
