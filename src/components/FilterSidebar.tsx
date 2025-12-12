@@ -1,5 +1,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { RotateCcw } from "lucide-react";
 
 interface FilterSection {
   title: string;
@@ -44,28 +46,38 @@ const filterSections: FilterSection[] = [
 
 export function FilterSidebar() {
   return (
-    <aside className="w-[280px] shrink-0 border-r border-border bg-card p-6">
-      <div className="space-y-8">
+    <aside className="w-[280px] shrink-0 border-r border-border bg-card overflow-auto">
+      <div className="sticky top-0 bg-card border-b border-border p-4 flex items-center justify-between z-10">
+        <h2 className="font-semibold text-foreground">Filters</h2>
+        <Button variant="ghost" size="sm" className="h-8 gap-1.5 text-xs text-muted-foreground hover:text-primary">
+          <RotateCcw className="h-3.5 w-3.5" />
+          Reset
+        </Button>
+      </div>
+      
+      <div className="p-6 space-y-8">
         {filterSections.map((section) => (
           <div key={section.title} className="space-y-4">
             <h3 className="text-sm font-semibold text-foreground">{section.title}</h3>
             <div className="space-y-3">
               {section.options.map((option) => (
-                <div key={option.id} className="flex items-center justify-between">
+                <div key={option.id} className="flex items-center justify-between group">
                   <div className="flex items-center gap-3">
                     <Checkbox 
                       id={option.id} 
-                      className="h-4 w-4 rounded border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                      className="h-4 w-4 rounded border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary transition-colors"
                     />
                     <Label 
                       htmlFor={option.id} 
-                      className="cursor-pointer text-sm font-normal text-muted-foreground hover:text-foreground transition-colors"
+                      className="cursor-pointer text-sm font-normal text-muted-foreground group-hover:text-foreground transition-colors"
                     >
                       {option.label}
                     </Label>
                   </div>
                   {option.count && (
-                    <span className="text-xs text-muted-foreground">{option.count}</span>
+                    <span className="text-xs text-muted-foreground bg-secondary px-2 py-0.5 rounded-full">
+                      {option.count}
+                    </span>
                   )}
                 </div>
               ))}
