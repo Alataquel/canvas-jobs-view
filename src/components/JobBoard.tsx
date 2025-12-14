@@ -100,41 +100,35 @@ export function JobBoard() {
       {/* Main Content */}
       <main className="flex-1 overflow-auto">
         {/* Header with gradient */}
-        <div className="bg-gradient-to-br from-primary/5 via-primary/3 to-transparent px-8 pt-8 pb-6">
-          <div className="mx-auto max-w-4xl">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                <Briefcase className="h-5 w-5 text-primary" />
-              </div>
-              <h1 className="text-3xl font-bold text-foreground">Job Board</h1>
+        <div className="bg-gradient-to-br from-primary/5 via-primary/3 to-transparent px-6 pt-6 pb-4">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <Briefcase className="h-5 w-5 text-primary" />
             </div>
-            <p className="text-muted-foreground max-w-2xl">
-              Explore job opportunities that match your skills and experience. Use the filters to find the perfect job for you.
-            </p>
-            
-            {/* Stats */}
-            <div className="flex items-center gap-6 mt-4">
-              <div className="flex items-center gap-2 text-sm">
-                <div className="h-2 w-2 rounded-full bg-status-new animate-pulse" />
-                <span className="text-muted-foreground"><strong className="text-foreground">12</strong> new today</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <TrendingUp className="h-4 w-4 text-primary" />
-                <span><strong className="text-foreground">156</strong> total opportunities</span>
-              </div>
+            <h1 className="text-2xl font-bold text-foreground">Job Board</h1>
+          </div>
+          
+          {/* Stats */}
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2 text-sm">
+              <div className="h-2 w-2 rounded-full bg-status-new animate-pulse" />
+              <span className="text-muted-foreground"><strong className="text-foreground">12</strong> new today</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <TrendingUp className="h-4 w-4 text-primary" />
+              <span><strong className="text-foreground">156</strong> total opportunities</span>
             </div>
           </div>
         </div>
 
-        <div className="px-8 pb-8">
-          <div className="mx-auto max-w-4xl">
-            {/* Search */}
-            <div className="mb-6 -mt-3">
-              <SearchBar />
-            </div>
+        <div className="px-6 pb-6">
+          {/* Search */}
+          <div className="mb-4 -mt-2">
+            <SearchBar />
+          </div>
 
-            {/* Results count */}
-            <div className="mb-6 flex items-center justify-between">
+          {/* Results count */}
+          <div className="mb-4 flex items-center justify-between">
               <p className="text-sm text-muted-foreground">
                 Showing <span className="font-semibold text-foreground">{sampleJobs.length}</span> jobs
               </p>
@@ -147,26 +141,26 @@ export function JobBoard() {
             </div>
 
             {/* Job Listings */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               {sampleJobs.map((job, index) => (
                 <JobCard key={job.id} job={job} index={index} />
               ))}
             </div>
 
             {/* Pagination */}
-            <div className="mt-8 flex items-center justify-between border-t border-border pt-6">
+            <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
               <p className="text-sm text-muted-foreground">
                 Showing <span className="font-medium text-foreground">1-{sampleJobs.length}</span> of{" "}
                 <span className="font-medium text-foreground">{totalJobs}</span> jobs
               </p>
               
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className="h-9 px-3"
+                  className="h-8 px-2"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
@@ -177,7 +171,7 @@ export function JobBoard() {
                     variant={currentPage === page ? "default" : "outline"}
                     size="sm"
                     onClick={() => setCurrentPage(page)}
-                    className={`h-9 w-9 p-0 ${
+                    className={`h-8 w-8 p-0 ${
                       currentPage === page 
                         ? "bg-primary text-primary-foreground" 
                         : ""
@@ -193,7 +187,7 @@ export function JobBoard() {
                   variant={currentPage === totalPages ? "default" : "outline"}
                   size="sm"
                   onClick={() => setCurrentPage(totalPages)}
-                  className={`h-9 w-9 p-0 ${
+                  className={`h-8 w-8 p-0 ${
                     currentPage === totalPages 
                       ? "bg-primary text-primary-foreground" 
                       : ""
@@ -207,13 +201,12 @@ export function JobBoard() {
                   size="sm"
                   onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
-                  className="h-9 px-3"
+                  className="h-8 px-2"
                 >
                   <ChevronRight className="h-4 w-4" />
                 </Button>
               </div>
             </div>
-          </div>
         </div>
       </main>
     </div>
