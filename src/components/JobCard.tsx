@@ -42,7 +42,7 @@ export function JobCard({ job, index }: JobCardProps) {
 
   return (
     <article 
-      className="group relative rounded-xl border border-border bg-card p-6 job-card-shadow transition-all duration-300 hover:job-card-shadow-hover hover:border-primary/30 cursor-pointer"
+      className="group relative rounded-xl border border-border bg-card p-5 job-card-shadow transition-all duration-300 hover:job-card-shadow-hover hover:border-primary/30 cursor-pointer flex flex-col h-full"
       style={{ animationDelay: `${index * 50}ms` }}
     >
       {job.isFeatured && (
@@ -53,110 +53,105 @@ export function JobCard({ job, index }: JobCardProps) {
         </div>
       )}
       
-      <div className="flex gap-4">
-        {/* Company Logo */}
+      {/* Header with logo and actions */}
+      <div className="flex items-start justify-between gap-3 mb-3">
         <div 
-          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl text-sm font-bold text-primary-foreground shadow-sm"
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg text-xs font-bold text-primary-foreground shadow-sm"
           style={{ backgroundColor: job.companyColor }}
         >
           {job.companyLogo}
         </div>
-
-        {/* Content */}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-lg">
-                {job.title}
-              </h3>
-              <p className="text-sm text-muted-foreground">{job.company}</p>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex items-center gap-2 shrink-0">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleSave}
-                className={`h-9 px-3 transition-all duration-200 ${
-                  isSaved 
-                    ? "bg-primary/10 border-primary text-primary hover:bg-primary/20" 
-                    : "hover:border-primary/50 hover:text-primary"
-                }`}
-              >
-                <Bookmark className={`h-4 w-4 ${isSaved ? "fill-primary" : ""}`} />
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleAddToTracker}
-                className={`h-9 gap-1.5 transition-all duration-200 ${
-                  isTracked 
-                    ? "bg-status-new/10 border-status-new text-status-new hover:bg-status-new/20" 
-                    : "hover:border-primary/50 hover:text-primary"
-                }`}
-              >
-                <Plus className={`h-4 w-4 ${isTracked ? "rotate-45" : ""} transition-transform`} />
-                <span className="hidden sm:inline">{isTracked ? "Tracked" : "Track"}</span>
-              </Button>
-            </div>
-          </div>
-
-          {/* Meta info */}
-          <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-1.5">
-              <MapPin className="h-4 w-4 text-primary/70" />
-              <span>{job.location}</span>
-            </div>
-            {job.salary && (
-              <div className="flex items-center gap-1.5">
-                <DollarSign className="h-4 w-4 text-primary/70" />
-                <span>{job.salary}</span>
-              </div>
-            )}
-            {job.level && (
-              <div className="flex items-center gap-1.5">
-                <Star className="h-4 w-4 text-primary/70" />
-                <span>{job.level}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Description */}
-          <p className="mt-3 text-sm text-muted-foreground line-clamp-2 leading-relaxed">
-            {job.description}
-          </p>
-
-          {/* Tags and Posted date */}
-          <div className="mt-4 flex items-center justify-between">
-            <div className="flex flex-wrap gap-2">
-              {job.tags.map((tag) => (
-                <Badge 
-                  key={tag} 
-                  variant="secondary"
-                  className="bg-secondary text-secondary-foreground text-xs font-medium px-2.5 py-1 hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
-                >
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-            <div className="flex items-center gap-3 shrink-0 ml-4">
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <Clock className="h-3.5 w-3.5" />
-                <span>{job.postedAt}</span>
-              </div>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="h-8 gap-1.5 text-xs text-primary hover:bg-primary/10"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <span>View</span>
-                <ExternalLink className="h-3.5 w-3.5" />
-              </Button>
-            </div>
-          </div>
+        
+        {/* Action Buttons */}
+        <div className="flex items-center gap-1.5">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleSave}
+            className={`h-8 w-8 p-0 transition-all duration-200 ${
+              isSaved 
+                ? "bg-primary/10 border-primary text-primary hover:bg-primary/20" 
+                : "hover:border-primary/50 hover:text-primary"
+            }`}
+          >
+            <Bookmark className={`h-3.5 w-3.5 ${isSaved ? "fill-primary" : ""}`} />
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleAddToTracker}
+            className={`h-8 w-8 p-0 transition-all duration-200 ${
+              isTracked 
+                ? "bg-status-new/10 border-status-new text-status-new hover:bg-status-new/20" 
+                : "hover:border-primary/50 hover:text-primary"
+            }`}
+          >
+            <Plus className={`h-3.5 w-3.5 ${isTracked ? "rotate-45" : ""} transition-transform`} />
+          </Button>
         </div>
+      </div>
+
+      {/* Title and Company */}
+      <div className="mb-3">
+        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-base leading-tight line-clamp-2">
+          {job.title}
+        </h3>
+        <p className="text-sm text-muted-foreground mt-1">{job.company}</p>
+      </div>
+
+      {/* Meta info */}
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-muted-foreground mb-3">
+        <div className="flex items-center gap-1">
+          <MapPin className="h-3.5 w-3.5 text-primary/70" />
+          <span className="truncate max-w-[120px]">{job.location}</span>
+        </div>
+        {job.salary && (
+          <div className="flex items-center gap-1">
+            <DollarSign className="h-3.5 w-3.5 text-primary/70" />
+            <span>{job.salary}</span>
+          </div>
+        )}
+        {job.level && (
+          <div className="flex items-center gap-1">
+            <Star className="h-3.5 w-3.5 text-primary/70" />
+            <span>{job.level}</span>
+          </div>
+        )}
+      </div>
+
+      {/* Description */}
+      <p className="text-xs text-muted-foreground line-clamp-3 leading-relaxed mb-4 flex-1">
+        {job.description}
+      </p>
+
+      {/* Tags */}
+      <div className="flex flex-wrap gap-1.5 mb-4">
+        {job.tags.slice(0, 2).map((tag) => (
+          <Badge 
+            key={tag} 
+            variant="secondary"
+            className="bg-secondary text-secondary-foreground text-[10px] font-medium px-2 py-0.5 hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
+          >
+            {tag}
+          </Badge>
+        ))}
+      </div>
+
+      {/* Footer */}
+      <div className="flex items-center justify-between pt-3 border-t border-border mt-auto">
+        <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
+          <Clock className="h-3 w-3" />
+          <span>{job.postedAt}</span>
+        </div>
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="h-7 gap-1 text-xs text-primary hover:bg-primary/10 px-2"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <span>View</span>
+          <ExternalLink className="h-3 w-3" />
+        </Button>
       </div>
     </article>
   );
